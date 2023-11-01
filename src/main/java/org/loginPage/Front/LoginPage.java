@@ -1,29 +1,34 @@
 package org.loginPage.Front;
 
 import org.loginPage.Back.LogReg;
+import org.loginPage.Back.User;
 
 
-import java.util.Random;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LoginPage{
+    LogReg use = new LogReg();
+    Scanner scan = new Scanner(System.in);
 
     public void start(){
-        Random rand = new Random();
-        LogReg use = new LogReg();
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Enter your phone humber: +7 ");
+        System.out.print("Enter your phone humber: +7-");
         String number = scan.nextLine();
         number = number.replaceAll("\\s","");
         if(use.logged(number)){
             while (true){
-                int choice = 1;
+                int choice;
                 System.out.print("Please enter SMS-code: ");
+                System.out.print("(" + use.showSMS() + ") ");
                 int userSMS = scan.nextInt();
-                System.out.println(use.showSMS());
                 if(use.check(userSMS)){
-                    System.out.println("You are logged in");
-                    System.exit(0);
+                    Map<String , User> name;
+                    name = use.getUsers();
+                    System.out.println("Hello " + name + '\n');
+                    while(true){
+                        String  a = scan.nextLine();
+                        if(a.equals("exit"))System.exit(0);
+                    }
                 }
                 else{
                     System.out.println("The code that you have entered is incorrect please try again or exit the login page");
@@ -31,8 +36,7 @@ public class LoginPage{
                     System.out.println("2.Exit");
                     choice = scan.nextInt();
                 }
-                if(choice==1)continue;
-                else break;
+                if(choice==2) break;
             }
         }
         else{

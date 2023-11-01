@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 class SendSMS{
     Random rand = new Random();
-    private int SMS = rand.nextInt(1000,9999);
+    private int SMS;
     /*
     * HERE I WILL SEND CODE TO PHONE NUMBER BUT I DO NOT KNOW HOW TO DO IT
     */
@@ -25,6 +25,7 @@ class SendSMS{
 @Builder
 public class LogReg {
     Random rand = new Random();
+    SendSMS sendSMS = new SendSMS();
 
     private Map<String, User> users;
     public LogReg() {
@@ -35,11 +36,18 @@ public class LogReg {
         return users.containsKey(number);
     }
     public boolean check(int userSMS){
-        SendSMS sendSMS = new SendSMS();
         return userSMS == sendSMS.getSMS();
     }
     public int showSMS(){
-        SendSMS sendSMS = new SendSMS();
+        sendSMS.setSMS(rand.nextInt(1000,9999));
         return sendSMS.getSMS();
+    }
+    public boolean register(String number, String name, String surname){
+        User curretUser = new User(number, name, surname);
+        if(!users.containsKey(number)){
+             users.put(number, curretUser);
+             return true;
+        }
+        else return false;
     }
 }
