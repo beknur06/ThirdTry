@@ -8,8 +8,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        LoginPage login = new LoginPage();
-        RegisterPage reg = new RegisterPage();
+        LoginPage user = new LoginPage();
         while(true){
             System.out.println("Banknig System of Beknur:");
             System.out.println("1. Login");
@@ -18,10 +17,10 @@ public class Main {
             System.out.print("Chose option: ");
             int options = scanner.nextInt();
             if(options == 1){
-                login.start();
+                user.startLogin();
             }
             else if(options == 2){
-                reg.start();
+                user.startReg();
             }
             else{
                 System.exit(0);

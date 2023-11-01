@@ -11,7 +11,7 @@ public class LoginPage{
     LogReg use = new LogReg();
     Scanner scan = new Scanner(System.in);
 
-    public void start(){
+    public void startLogin(){
         System.out.print("Enter your phone humber: +7-");
         String number = scan.nextLine();
         number = number.replaceAll("\\s","");
@@ -24,7 +24,7 @@ public class LoginPage{
                 if(use.check(userSMS)){
                     Map<String , User> name;
                     name = use.getUsers();
-                    System.out.println("Hello " + name + '\n');
+                    System.out.println("Hello " + name.get(number).getName() + ' ' + name.get(number).getSurname() + '\n');
                     while(true){
                         String  a = scan.nextLine();
                         if(a.equals("exit"))System.exit(0);
@@ -41,6 +41,21 @@ public class LoginPage{
         }
         else{
             System.out.println("The user with this number does not exist. Please check your number or press registration button");
+        }
+    }
+    public void startReg(){
+        System.out.print("Enter your phone humber: +7-");
+        String number = scan.nextLine();
+        number = number.replaceAll("\\s","");
+        System.out.print("Enter your name: ");
+        String name = scan.nextLine();
+        System.out.print("Enter your surname: ");
+        String surname = scan.nextLine();
+        if(use.register(number, name, surname)) {
+            System.out.println("You have successfully registered, please login");
+        }
+        else{
+            System.out.println("User with this number already exists");
         }
     }
 }
